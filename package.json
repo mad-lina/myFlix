@@ -1,0 +1,29 @@
+{
+  "name": "myflix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mad-lina/myFlix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mad-lina/myFlix/issues"
+  },
+  "homepage": "https://github.com/mad-lina/myFlix#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0"
+  }
+}
