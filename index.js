@@ -2,6 +2,7 @@ const express = require('express'),
     morgan = require('morgan');
 const app = express();
 
+//Morgan used for logging info on server requests
 app.use(morgan('common'));
 
 let topMovies = [
@@ -48,23 +49,28 @@ let topMovies = [
   ];
 
 
-  app.get('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Welcome to my movie list!');
-  });
+});
 
-  app.get('/documentation', (req, res) => {                  
+app.get('/documentation', (req, res) => {                  
     res.sendFile('public/documentation.html', { root: __dirname });
-  });
+});
 
-  app.get('/movies', (req, res) => {
+app.get('/movies', (req, res) => {
     res.json(topMovies);
-  });
+});
 
-  app.use((err, req, res, next) => {
+//Printing errors
+app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
-  });
+});
 
-  app.listen(8080, () => {
+app.get('*', (req, res) => {
+    res.status(404).send('404 Page: route not found');
+});
+
+app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
-  });
+});
