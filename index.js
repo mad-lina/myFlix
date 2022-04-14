@@ -11,15 +11,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Morgan used for logging info on server requests
 app.use(morgan('common'));
 
+const cors = require('cors');
+app.use(cors());
+
 //Importing the authorization file auth.js
 let auth = require('./auth')(app);
 require('./passport');
 
+//Installing mongoose data models from models.js
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+//Express Validator for user registration validation
+const { check, validationResult } = require('express-validator');
 
 app.get('/', (req, res) => {
     res.send('Welcome to my movie list!');
@@ -80,13 +87,32 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false
 });
 
 // Registers a new user
-app.post('/users', (req, res) => {
+app.post('/users', 
+
+  //User input validation
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ]
+
+,(req, res) => {
+
+    // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({Username: req.body.Username}).then((user)=>{
     if(user){return res.status(400).send(req.body.Username + 'already exists');}
     else{
       Users.create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
@@ -105,7 +131,25 @@ app.post('/users', (req, res) => {
 });
 
 // Allows a user to update their information
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:Username',   
+
+  //User input validation
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ],
+  
+  passport.authenticate('jwt', { session: false }), (req, res) => {
+
+      // check the validation object for errors
+      let errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+      }
+
   Users.findOneAndUpdate({Username: req.params.Username},
     {$set:
       {
@@ -182,6 +226,8 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-app.listen(8080, () => {
-    console.log('Your app is listening on port 8080.');
+//Location the server is listening on
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
 });
