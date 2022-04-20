@@ -40,9 +40,9 @@
 
         <tr>
           <td>Returns data about a single movie by title to the user</td>
-          <td>"/movies/:title"</td>
-          <td>:title</td>
-          <td>GET <br> Example: app.get("/movies/:title", (req,res) =>{})</td>
+          <td>"/movies/:Title"</td>
+          <td>:Title</td>
+          <td>GET <br> Example: app.get("/movies/:Title", (req,res) =>{})</td>
           <td>
             A JSON object holding data about a single movie <br>
             Example: {Title: "Moulin Rouge", Description: ""}
@@ -52,9 +52,9 @@
 
         <tr>
           <td>Returns data about a genre by name</td>
-          <td>"/movies/genre/:name"</td>
-          <td>:name</td>
-          <td>GET<br> Example: app.get("/movies/genre/:name", (req,res) =>{})</td>
+          <td>"/movies/genre/:Name"</td>
+          <td>:Name</td>
+          <td>GET<br> Example: app.get("/movies/genres/:Name", (req,res) =>{})</td>
           <td>
             A JSON object holding data about a genre <br>
             Example: Genre: { Name: "Musical", Description:""}
@@ -64,9 +64,9 @@
   
         <tr>
           <td>Returns data about a director by name</td>
-          <td>"/movies/directors/:name"</td>
-          <td>:name</td>
-          <td>GET <br> Example: app.get("/movies/directors/:name", (req,res) =>{})</td>
+          <td>"/movies/directors/:Name"</td>
+          <td>:Name</td>
+          <td>GET <br> Example: app.get("/movies/directors/:Name", (req,res) =>{})</td>
           <td>
             A JSON object holding data about a director <br>
             Example: Director: { Name: "Baz Luhrmann", Bio: "" },
@@ -102,9 +102,9 @@
         
         <tr>
           <td>Allows users to update their user info</td>
-          <td>"/users/:username"</td>
-          <td>:username</td>
-          <td>PUT <br> Example: app.put("/users:username", (req,res) =>{})</td>
+          <td>"/users/:Username"</td>
+          <td>:Username</td>
+          <td>PUT <br> Example: app.put("/users/:Username", (req,res) =>{})</td>
           <td>A JSON object holding the updated user data <br>
             Example: {
               ID: Integer,
@@ -112,33 +112,43 @@
               Password: String,
               Email: String,
               Birthday: Date
-            },</td>
-          <td></td>
+            },
+          </td>
+          <td>
+              A JSON object is requested  <br>
+              Example: {
+                ID: Integer,
+                Username: String,
+                Password: String,
+                Email: String,
+                Birthday: Date
+              },
+            </td>
         </tr>
 
         <tr>
           <td>Allows users to add a movie to their list of favorites</td>
-          <td>"/users/:username/movies/:movieID"</td>
-          <td>:username,:movieID</td>
-          <td>POST <br> Example: app.post("/users/:username/movies/:movieID", (req,res) =>{})</td>
+          <td>"/users/:Username/movies/:MovieID"</td>
+          <td>:Username,:MovieID</td>
+          <td>POST <br> Example: app.post("/users/:Username/movies/:MovieID", (req,res) =>{})</td>
           <td>A text message indicating that the movie has been added</td>
           <td></td>
         </tr>
 
         <tr>
           <td>Allows users to remove a movie from their list of favorites</td>
-          <td>"/users/:username/movies/:movieID"</td>
-          <td>:username,:movieID</td>
-          <td>DELETE <br> Example: app.delete("/users/:username/movies/:movieID", (req,res) =>{})</td>
+          <td>"/users/:Username/movies/:MovieID"</td>
+          <td>:Username,:MovieID</td>
+          <td>DELETE <br> Example: app.delete("/users/:Username/movies/:MovieID", (req,res) =>{})</td>
           <td>A text message indicating that the movie has been deleted</td>
           <td></td>
         </tr>
 
         <tr>
           <td>Allows existing users to deregister</td>
-          <td>"/users/:username"</td>
-          <td>:username</td>
-          <td>DELETE <br> Example: app.delete("/users/:username", (req,res) =>{})</td>
+          <td>"/users/:Username"</td>
+          <td>:Username</td>
+          <td>DELETE <br> Example: app.delete("/users/:Username", (req,res) =>{})</td>
           <td>A text message indicating that the user has been deleted</td>
           <td></td>
         </tr>
