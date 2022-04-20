@@ -21,4 +21,4 @@
 #### I learned about password encoding when entering a password into the terminal, and saw more of how detailed a programmer must be with casing and syntax to ensure their code, internal & external databases, and hosts can all connect properly.
 
 
-## To learn about the API points and how to use them, please refer to documentation.html which lays out a table of each request, its corresponding url, and the request and response body formats. Each endpoint function is located in index.js
+## To learn about the API points and how to use them, please refer to documentation.html which lays out a table of each request, its corresponding url, and the request and response body formats. You can also see this here: https://cryptic-taiga-17986.herokuapp.com/documentation
