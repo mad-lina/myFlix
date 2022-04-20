@@ -27,6 +27,7 @@ const Users = Models.User;
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 //Connecting to MongoAtlas via Heroku-defined variable CONNECTION_URI
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect('mongodb+srv://Lina88:Taurus1993!@cluster0.7nexe.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Express Validator for user registration validation
 const { check, validationResult } = require('express-validator');
