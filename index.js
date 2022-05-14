@@ -44,8 +44,7 @@ app.get('/documentation', (req, res) => {
 });
 
 // Gets the list of data about ALL movies
-// Removed for client side testing purposes: passport.authenticate('jwt', { session: false }), 
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -69,8 +68,7 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
 });
 
 // Gets the data about a single genre, by name
-//Removed for client side testing purposes: passport.authenticate('jwt', { session: false }),
-app.get('/movies/genres/:Name', (req, res) => {
+app.get('/movies/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ 'Genre.Name': req.params.Name })
     .then((movie) => {
       let genre = movie.Genre;
